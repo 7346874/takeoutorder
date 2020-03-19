@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.java.dao.MenuMapper">
+
+    <select id="findAll" resultType="Menu">
+        select * from t_menu
+    </select>
+
+    <select id="findAllList" resultType="java.util.HashMap">
+        SELECT a.id,a.`name`,a.price,a.flavor,b.`name` type FROM t_menu a LEFT JOIN t_type b ON a.tid=b.id limit #{page},#{size}
+    </select>
+
+
+    <select id="count" resultType="int">
+        select count(id) from t_menu
+    </select>
+
+    <select id="findById" parameterType="String">
+        select * from t_menu where id = #{id}
+    </select>
+
+    <insert id="save" parameterType="java.util.HashMap">
+        insert into t_menu(name,price,flavor,tid) values(#{name},#{price},#{flavor},#{tid})
+    </insert>
+
+    <update id="update" parameterType="java.util.HashMap">
+        update t_menu set name = #{name},price = #{price},flavor = #{flavor},tid = #{tid} where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        delete from t_menu where id = #{id}
+    </delete>
+
+</mapper>
